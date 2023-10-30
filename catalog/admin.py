@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from catalog.models import Product, Category, Contact
+from catalog.models import Product, Category, Contact, Version
 
 
 @admin.register(Category)
@@ -19,3 +19,11 @@ class ProductAdmin(admin.ModelAdmin):
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
     list_display = ("pk", "country", "inn", "address")
+
+
+@admin.register(Version)
+class VersionAdmin(admin.ModelAdmin):
+    list_display = ("pk", "name", "number", "get_products_name")
+
+    def get_products_name(self, obj):
+        return '; '.join([product.name for product in obj.products.all()])
