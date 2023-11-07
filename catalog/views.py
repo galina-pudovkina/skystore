@@ -2,8 +2,8 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Product, Contact
-from .forms import ProductForm
+from .models import Product, Contact, Version
+from .forms import ProductForm, VersionForm
 
 
 class ProductListView(ListView):
@@ -94,8 +94,7 @@ class ContactDetailView(ListView):
         return context
 
 
-# class ContactsListView(ListView):
-#     model = Contact
-#     template_name = 'catalog/contacts.html'
-#     context_object_name = 'address_info'
-#     queryset = Contact.objects.first()
+class VersionCreateView(CreateView):
+    model = Version
+    form_class = VersionForm
+    success_url = '/'
